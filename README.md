@@ -1,5 +1,6 @@
+![bilde](https://github.com/user-attachments/assets/5220977a-1b88-47ef-89e2-a48c8f56a730)
+<hr>
 
-![image](https://github.com/user-attachments/assets/b5159e41-7299-4a53-b2d9-6855839de517)
 
 
 Pokedex application made with html, css & javascript <hr>
