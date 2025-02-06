@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokedex</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <h1>Pokedex</h1>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Pokémon Search</h1>
+    <input
+      type="text"
+      id="pokemonName"
+      placeholder="Enter Pokémon name (e.g., pikachu)"
+    />
+    <button id="searchButton">Search</button>
 
+    <div id="pokemonInfo" class="pokemon-info" hidden>
+      <h2 id="pokemonTitle"></h2>
+    </div>
 
     <script src="./app.js"></script>
-</body>
+  </body>
 </html>
