@@ -7,25 +7,48 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Pokémon Search</h1>
-    <input
-      type="text"
-      id="pokemonName"
-      placeholder="Enter Pokémon name (e.g., pikachu)"
-    />
-    <button id="searchButton">Search</button>
-
+<!-------------NAVBAR------------------->
+  <nav class="navBar">
+    <!-- magnifying glass svg -->
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4.49905 9.74857C4.49905 11.8998 5.19752 13.887 6.37414 15.4993L0.439474 21.4375C-0.146492 22.0233 -0.146492 22.9748 0.439474 23.5606C1.02544 24.1465 1.97705 24.1465 2.56302 23.5606L8.49768 17.6224C10.1103 18.8035 12.0979 19.4971 14.2495 19.4971C19.6357 19.4971 24 15.1337 24 9.74857C24 4.36342 19.6357 0 14.2495 0C8.86332 0 4.49905 4.36342 4.49905 9.74857ZM14.2495 16.4976C13.3631 16.4976 12.4853 16.323 11.6663 15.9838C10.8473 15.6447 10.1031 15.1475 9.47632 14.5208C8.84949 13.8941 8.35227 13.1501 8.01303 12.3313C7.6738 11.5125 7.4992 10.6349 7.4992 9.74857C7.4992 8.86228 7.6738 7.98466 8.01303 7.16584C8.35227 6.34701 8.84949 5.603 9.47632 4.9763C10.1031 4.3496 10.8473 3.85247 11.6663 3.5133C12.4853 3.17413 13.3631 2.99956 14.2495 2.99956C15.136 2.99956 16.0138 3.17413 16.8328 3.5133C17.6518 3.85247 18.3959 4.3496 19.0227 4.9763C19.6496 5.603 20.1468 6.34701 20.486 7.16584C20.8253 7.98466 20.9999 8.86228 20.9999 9.74857C20.9999 10.6349 20.8253 11.5125 20.486 12.3313C20.1468 13.1501 19.6496 13.8941 19.0227 14.5208C18.3959 15.1475 17.6518 15.6447 16.8328 15.9838C16.0138 16.323 15.136 16.4976 14.2495 16.4976Z" fill="white"/>
+    </svg>
+      <!-- search bar -->
+      <input
+        type="text"
+        id="pokemonName"
+        placeholder="Enter Pokémon name (e.g., pikachu)"/>
+        <!-- search button -->
+        <button id="searchButton">Search</button>
+          <!-- pokedex entry number -->
+        <p>ID: #<span id="pokemonId"></span></p>
+  </nav>
+    <main>
+      <!-- image+height&weight container -->
+      <div class="pokemonShowcase">
+        <!-- render image based on entry  -->
+        <img id="pokemonImage" alt="Pokémon Image" />
+          <!-- container for height and weight -->
+          <div class="container-h-w"> 
+              <div class="Weight">
+                <p>Weight: <span id="pokemonWeight"></span></p></div>
+              <div class="Height">
+                <p>Height: <span id="pokemonHeight"></span></p></div>
+          </div>
+      </div>
+    </main>
+    <!-- pokemon name + typing container -->
+    <div class="nameAndTyping">
+        <h2 id="pokemonTitle"></h2>
+        <p>Type: <span id="pokemonTypes"></span></p>
+    </div>
+    
     <div id="pokemonInfo" class="pokemon-info" hidden>
       <h2 id="pokemonTitle"></h2>
-      <img id="pokemonImage" alt="Pokémon Image" />
-      <div class="pokemon-details">
-        <p>Height: <span id="pokemonHeight"></span></p>
-        <p>Weight: <span id="pokemonWeight"></span></p>
-        <p>ID: <span id="pokemonId"></span></p>
-        <p>Type: <span id="pokemonTypes"></span></p>
-      </div>
 
-      <h3>Stats</h3>
+      <div class="pokemon-details"></div>
+      <h3>Stats:</h3>
+
       <div id="pokemonStats"></div>
     </div>
 

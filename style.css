@@ -6,10 +6,6 @@
   padding: 0;
 }
 
-body{
-  font-family: Kanit, Roboto, serif;
-}
-
 :root{
   /* STYLING */
   --white-txt: #FFFFFF;
@@ -45,4 +41,132 @@ body{
   --rock-clr: #B69E31;
   --steel-clr: #B7B9D0;
   --water-clr: #6493EB;
+}
+body{
+  font-family: Kanit, Roboto, serif;
+  color: var(--white-txt);
+  background-color: var(--black-clr);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+nav{
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+  position: fixed;
+  top: 0;
+}
+.navBar{
+  /* border: 5px solid blue; */
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  width: 100%;
+  display: flexbox;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--water-clr)
+  
+  
+}
+.navBar p{
+  font-size: larger;
+  font-family: Kanit;
+  font-weight: 500;
+  
+}
+svg{
+  padding-right: 15px;
+  scale: 110%;
+}
+input{
+  font-family: Roboto;
+  font-weight: 500;
+  height: 2rem;
+  width: 15%;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  margin-right: 4px;
+}
+#pokemonName{
+  padding-left: 10px;
+}
+button{
+  font-family: Kanit;
+  height: 2rem;
+  width: 6rem;
+  /* border: 0; */
+  border-radius: 15px;
+  margin-right: 10%;
+  background-color: var(--white-txt);
+  text-decoration: none;
+  border: none;
+  color: var(--black-clr);
+  /* padding: 10px 20px; */
+}
+
+
+.magnifying-glass{
+  color: white;
+}
+main{
+  width: 40%;
+  height: auto;
+  flex-shrink: 0;
+  /* border: 5px solid yellow; */
+  background-color: var(--water-clr);
+  border-radius: 10%;
+  border-start-start-radius: 0%;
+  border-start-end-radius: 0%;
+  /* width: 30%; */
+  padding-top: 4%;
+  align-self: center;
+  text-align: center;
+  object-fit: cover;
+  overflow: hidden;
+}
+.container-h-w{
+  /* border: 2px solid green; */
+  display: flex;
+  flex-grow: 2;
+  font-family: Kanit;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 400;
+}
+.pokemonShowcase .Weight{
+  /* border: 2px solid green; */
+  /* display: flex; */
+  align-items: start;
+  text-align: start;
+  width: 50%;
+  margin-left: 1rem;
+  
+}.pokemonShowcase .Height{
+  /* border: 2px solid red; */
+  align-self: end;
+  text-align: end;
+  align-items: end;
+  width: 50%;
+  padding-bottom: 5%;
+  margin-right: 1.2rem;
+}
+.pokemonShowcase img {
+  /* border: 2px solid green; */
+  max-width: fit-content;  
+  height: fit-content;
+}
+.nameAndTyping{
+  text-align: center;
+  font-family: Kanit;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  padding-bottom: 3rem;
+
+}
+
+.pokemon-info{
+  padding-bottom: 5rem;
 }
