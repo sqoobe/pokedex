@@ -1,6 +1,6 @@
 Pokedex application made with html, css & javascript 
 
-figma = "....."
+figma = https://www.figma.com/design/LMqyXjwFMB9qsSVnR0ow92/Pokedex?node-id=0-1&p=f&m=dev
 API = https://pokeapi.co/
 
 
