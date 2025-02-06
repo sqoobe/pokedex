@@ -1,3 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+
 * {
   margin: 0;
+  padding: 0;
+}
+
+body{
+  font-family: Kanit, Roboto, serif;
+}
+
+:root{
+  /* STYLING */
+  --white-txt: #FFFFFF;
+  --black-clr: #212121;
+  --medium-clr: #666666;
+
+  /* STATS */
+
+  --hp-clr: #12D002;
+  --atk-clr: #F50000;
+  --def-clr: #FF7A00;
+  --spatk-clr: #9400DA;
+  --spdef-clr: #ECE300;
+  --speed-clr: #005BE3;
+
+
+  /* TYPING COLORS */
+  --bug-clr: #A7B723;
+  --dark-clr: #75574C;
+  --dragon-clr: #7037FF;
+  --electric-clr: #F9CF30;
+  --fairy-clr: #E69EAC;
+  --fighting-clr: #C12239;
+  --fire-clr: #F57D31;
+  --flying-clr: #A891EC;
+  --ghost-clr: #70559B;
+  --normal-clr: #AAA67F;
+  --grass-clr: #74CB48;
+  --ground-clr: #DEC16B;
+  --ice-clr: #9AD6DF;
+  --poison-clr: #A43E9E;
+  --psychic-clr: #FB5584;
+  --rock-clr: #B69E31;
+  --steel-clr: #B7B9D0;
+  --water-clr: #6493EB;
 }
