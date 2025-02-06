@@ -32,6 +32,9 @@ function displayPokemonInfo(data) {
   document.getElementById("pokemonHeight").textContent = data.height;
   document.getElementById("pokemonWeight").textContent = data.weight;
   document.getElementById("pokemonId").textContent = data.id;
+  document.getElementById("pokemonTypes").textContent = data.types
+    .map((type) => type.type.name)
+    .join(", ");
 
   // Stats
   displayStats(data.stats);
