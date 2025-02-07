@@ -84,23 +84,17 @@ async function fetchPokemonData(name) {
 
 // Oppdaterer grensesnittet for å vise Pokémon-info
 function displayPokemonInfo(data) {
-  hideWelcomeScreen(); // Skjul startsiden
-  showPokemonElements(); // Vis de relevante elementene for Pokémon-info
-  updatePokemonInfo(data); // Oppdaterer grunnleggende info om Pokémonen
-  displayStats(data.stats); // Viser statene til Pokémonen
-}
-
-// Skjuler velkomstskjermen
-function hideWelcomeScreen() {
+  // Hide welcome screen
   document.getElementById("welcomeScreen").style.display = "none";
-}
 
-// Viser elementene som inneholder Pokémon-info
-function showPokemonElements() {
+  // Show Pokemon info containers
   document.querySelector("main").hidden = false;
   document.querySelector(".nameAndTyping").hidden = false;
   document.getElementById("pokemonInfo").hidden = false;
-  document.querySelector(".hash-tag").hidden = false;
+
+  // Update Pokemon info
+  updatePokemonInfo(data);
+  displayStats(data.stats);
 }
 
 // Oppdaterer info-delen med data fra API-et
@@ -113,8 +107,15 @@ function updatePokemonInfo(data) {
   document.getElementById("pokemonTitle").textContent = data.name.toUpperCase();
   document.getElementById("pokemonImage").src =
     data.sprites.versions["generation-v"]["black-white"].animated.front_default;
-  document.getElementById("pokemonHeight").textContent = data.height;
-  document.getElementById("pokemonWeight").textContent = data.weight;
+
+  // Format height (convert from decimeters to meters)
+  const heightInMeters = (data.height / 10).toFixed(1); // Convert to meters with 1 decimal
+  document.getElementById("pokemonHeight").textContent = `${heightInMeters}m`;
+
+  // Format weight (convert from hectograms to kilograms)
+  const weightInKg = (data.weight / 10).toFixed(1); // Convert to kg with 1 decimal
+  document.getElementById("pokemonWeight").textContent = `${weightInKg}kg`;
+
   document.getElementById("pokemonId").textContent = data.id;
 
   updateTypeDisplay(types); // Oppdaterer visningen av Pokémon-typene

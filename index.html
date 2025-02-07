@@ -9,25 +9,25 @@
   <body>
     <!-------------NAVBAR------------------->
     <nav class="navBar">
-      <!-- nav ico -->
-      <img class="nav-ico" id="nav-ico" src="img/pokeball.png" alt="">
-   
-      <!-- search bar -->
-      <input type="text" id="pokemonName" placeholder="Enter Pokémon name (e.g., pikachu)" />
-      <!-- search button -->
-      <button id="searchButton">Search</button>
-      <!-- pokedex entry number -->
-      <p class="hash-tag" hidden>ID: #<span id="pokemonId"></span></p>
+      <div class="nav-container">
+        <img class="nav-ico" id="nav-ico" src="img/pokeball.png" alt="" />
+        <input type="text" id="pokemonName" placeholder="Search" />
+        <img
+          src="img/mgn-glass.png"
+          id="searchButton"
+          class="search-icon"
+          alt="Search"
+        />
+      </div>
     </nav>
     <div id="welcomeScreen">
-      
       <img
         src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
         alt="Bulbasaur"
         class="welcome-pokeball"
       />
       <h2>Welcome to the Pokédex!</h2>
-      
+
       <p>Enter a Pokémon name above to get started</p>
     </div>
 
@@ -37,12 +37,18 @@
         <!-- render image based on entry  -->
         <img id="pokemonImage" alt="Pokémon Image" />
         <!-- container for height and weight -->
+        <div class="pokemon-id">
+          <span class="hashtag">#</span>
+          <span id="pokemonId"></span>
+        </div>
         <div class="container-h-w">
-          <div class="Weight">
-            <p>Weight: <span id="pokemonWeight"></span></p>
+          <div class="stat-pair">
+            <img src="img/weight.png" alt="Weight" class="stat-icon" />
+            <span id="pokemonWeight"></span>
           </div>
-          <div class="Height">
-            <p>Height: <span id="pokemonHeight"></span></p>
+          <div class="stat-pair">
+            <img src="img/ruler.png" alt="Height" class="stat-icon" />
+            <span id="pokemonHeight"></span>
           </div>
         </div>
       </div>
@@ -64,7 +70,6 @@
         </div>
       </div>
     </div>
-
 
     <script src="./app.js"></script>
   </body>
