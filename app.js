@@ -9,7 +9,7 @@ const statColors = {
   defense: "def", // Forsvar
   "special-attack": "spatk", // Spesialangrep
   "special-defense": "spdef", // Spesialforsvar
-  speed: "speed", // Fart
+  speed: "speed", // fast as fuck boiii
 };
 
 const statNames = {
@@ -29,6 +29,14 @@ const statNames = {
 // Når innholdet i DOM-en er lastet, starter vi rotasjonen av starter Pokémon
 document.addEventListener("DOMContentLoaded", rotateStarterPokemon);
 
+//refresh page
+const refreshBtn = document.getElementById("nav-ico");
+
+function handleClick() {
+  window.location.reload();
+}
+refreshBtn.addEventListener("click", handleClick);
+
 // Legger til klikk-lytter på søk-knappen
 document.getElementById("searchButton").addEventListener("click", handleSearch);
 
@@ -44,7 +52,10 @@ document.getElementById("pokemonName").addEventListener("keydown", (event) => {
 // Funksjonen som kjøres når brukeren trykker søk
 function handleSearch() {
   // Henter og formaterer brukerens input
-  const name = document.getElementById("pokemonName").value.toLowerCase().trim();
+  const name = document
+    .getElementById("pokemonName")
+    .value.toLowerCase()
+    .trim();
   if (!name) {
     alert("Please enter a Pokémon name!"); // Advar bruker om å skrive inn et navn
     return;
@@ -89,6 +100,7 @@ function showPokemonElements() {
   document.querySelector("main").hidden = false;
   document.querySelector(".nameAndTyping").hidden = false;
   document.getElementById("pokemonInfo").hidden = false;
+  document.querySelector(".hash-tag").hidden = false;
 }
 
 // Oppdaterer info-delen med data fra API-et
@@ -99,7 +111,8 @@ function updatePokemonInfo(data) {
 
   // Oppdaterer grunnleggende info
   document.getElementById("pokemonTitle").textContent = data.name.toUpperCase();
-  document.getElementById("pokemonImage").src = data.sprites.other["official-artwork"].front_default;
+  document.getElementById("pokemonImage").src =
+    data.sprites.versions["generation-v"]["black-white"].animated.front_default;
   document.getElementById("pokemonHeight").textContent = data.height;
   document.getElementById("pokemonWeight").textContent = data.weight;
   document.getElementById("pokemonId").textContent = data.id;
@@ -117,7 +130,14 @@ function displayStats(stats) {
   statsElement.innerHTML = `
     <div class="stats-container">
       <div class="stats-header">
-        ${stats.map((stat) => `<span class="stat-label">${formatStatName(stat.stat.name)}</span>`).join("")}
+        ${stats
+          .map(
+            (stat) =>
+              `<span class="stat-label">${formatStatName(
+                stat.stat.name
+              )}</span>`
+          )
+          .join("")}
       </div>
       <div class="stats-bars">
         ${stats.map((stat) => createStatElement(stat)).join("")}
