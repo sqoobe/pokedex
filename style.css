@@ -142,14 +142,23 @@ main {
 .stat-icon {
   width: 1rem;
   height: 1rem;
-  filter: brightness(0) invert(1) drop-shadow(0 0 2px rgba(255, 255, 255, 0.8));
+  
+}
+.shiny-toggle{
+  position: absolute;
+  top: 1rem;
+  left: 2rem;
+  display: flex;
+  scale: 70%;
+  filter: brightness(0) invert(1) drop-shadow(0 0 2px rgba(0, 0, 0, 0.8));
 }
 
 #pokemonWeight,
 #pokemonHeight {
-  color: white;
+  font-weight: 500;
+  color: var(--white-txt);
   font-size: 1rem;
-  text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
+  filter: brightness(0) invert(1) drop-shadow(0 0 3px rgba(0, 0, 0, 0.8));
 }
 
 .pokemonShowcase {
@@ -169,8 +178,7 @@ main {
 .pokemon-id span {
   color: white;
   font-size: 1rem;
-  text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
-}
+  filter: brightness(0) invert(1) drop-shadow(0 0 2px rgba(0, 0, 0, 0.8));}
 
 .pokemonShowcase #pokemonImage {
   margin-top: 3.2em;
@@ -333,6 +341,7 @@ main {
   font-size: 1rem;
   font-weight: 500;
 }
+
 
 .hashtag {
   color: white;
