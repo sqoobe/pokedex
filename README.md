@@ -1,7 +1,4 @@
-![bilde](https://github.com/user-attachments/assets/5220977a-1b88-47ef-89e2-a48c8f56a730)
-<hr>
-
-
+![githubpreview](https://github.com/user-attachments/assets/3b909322-54cb-407f-bbd4-93273e733dbd)
 
 Pokedex application made with html, css & javascript <hr>
 figma = https://www.figma.com/design/LMqyXjwFMB9qsSVnR0ow92/Pokedex?node-id=0-1&p=f&m=dev <br>
