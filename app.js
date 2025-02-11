@@ -21,6 +21,8 @@ const statNames = {
   speed: "SPD", // SPD (fart)
 };
 
+let isShiny = false; // Tracker om shiny er aktiv
+
 // ========================
 // HENDELSELYTTERE
 // ========================
@@ -99,26 +101,28 @@ function displayPokemonInfo(data) {
 
 // Oppdaterer info-delen med data fra API-et
 function updatePokemonInfo(data) {
-  // Henter ut alle typer Pokémonen har
+  // Lagrer data for sprite toggling
+  const pokemonImage = document.getElementById("pokemonImage");
+  pokemonImage.dataset.pokemonData = JSON.stringify(data);
+
+  // Oppdater typer og bakgrunn
   const types = data.types.map((type) => type.type.name);
-  setTypeBackground(types); // Setter bakgrunnsfarge basert på typen
+  setTypeBackground(types);
 
-  // Oppdaterer grunnleggende info
+  // Oppdater grunnleggende info
   document.getElementById("pokemonTitle").textContent = data.name.toUpperCase();
-  document.getElementById("pokemonImage").src =
-    data.sprites.versions["generation-v"]["black-white"].animated.front_default;
+  updatePokemonSprite(data); // Bruk ny funksjon for sprite-håndtering
 
-  // Format height (convert from decimeters to meters)
-  const heightInMeters = (data.height / 10).toFixed(1); // Convert to meters with 1 decimal
+  // Format height and weight
+  const heightInMeters = (data.height / 10).toFixed(1);
   document.getElementById("pokemonHeight").textContent = `${heightInMeters}m`;
 
-  // Format weight (convert from hectograms to kilograms)
-  const weightInKg = (data.weight / 10).toFixed(1); // Convert to kg with 1 decimal
+  const weightInKg = (data.weight / 10).toFixed(1);
   document.getElementById("pokemonWeight").textContent = `${weightInKg}kg`;
 
   document.getElementById("pokemonId").textContent = data.id;
 
-  updateTypeDisplay(types); // Oppdaterer visningen av Pokémon-typene
+  updateTypeDisplay(types);
 }
 
 // ========================
@@ -234,4 +238,34 @@ function rotateStarterPokemon() {
     welcomeImage.alt = starter.name;
   }, 3000);
 }
+
+// Legg til med andre hendelseslyttere
+document.getElementById("shinyToggle").addEventListener("click", () => {
+  isShiny = !isShiny; // Toggle the state
+
+  // Oppdater ikonet
+  const shinyIcon = document.getElementById("shinyIcon");
+  shinyIcon.src = isShiny ? "img/Shiny.png" : "img/NonShiny.png";
+
+  // Hvis en Pokémon er vist, oppdater dens sprite
+  const currentPokemon = document.getElementById("pokemonImage");
+  if (!currentPokemon.hidden) {
+    updatePokemonSprite(currentPokemon.dataset.pokemonData);
+  }
+});
+
+// Ny funksjon for å håndtere sprite-oppdateringer
+function updatePokemonSprite(data) {
+  // Hvis data er en streng (fra dataset), parse den
+  if (typeof data === "string") {
+    data = JSON.parse(data);
+  }
+
+  const spriteVersion = isShiny ? "front_shiny" : "front_default";
+  document.getElementById("pokemonImage").src =
+    data.sprites.versions["generation-v"]["black-white"].animated[
+      spriteVersion
+    ];
+}
+
 // cSpell: enable
