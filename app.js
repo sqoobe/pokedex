@@ -2,36 +2,38 @@
 // ========================
 // KONSTANTER
 // ========================
-// Her definerer vi objekter for statfarger og statnavn som vi bruker i koden.
+// Objekter for stat-farger og navn som brukes i applikasjonen
 const statColors = {
-  hp: "hp", // HP
-  attack: "atk", // Angrep
-  defense: "def", // Forsvar
-  "special-attack": "spatk", // Spesialangrep
-  "special-defense": "spdef", // Spesialforsvar
-  speed: "speed", // fast as fuck boiii
+  hp: "hp",
+  attack: "atk",
+  defense: "def",
+  "special-attack": "spatk",
+  "special-defense": "spdef",
+  speed: "speed",
 };
 
 const statNames = {
-  hp: "HP", // HP
-  attack: "ATK", // ATK (angrep)
-  defense: "DEF", // DEF (forsvar)
-  "special-attack": "SP.A", // SP.A (spesialangrep)
-  "special-defense": "SP.D", // SP.D (spesialforsvar)
-  speed: "SPD", // SPD (fart)
+  hp: "HP",
+  attack: "ATK",
+  defense: "DEF",
+  "special-attack": "SP.A",
+  "special-defense": "SP.D",
+  speed: "SPD",
 };
 
 let isShiny = false; // Holder styr på om shiny versjon er aktiv
 
+// Konstanter for paginering
+const POKEMON_PER_PAGE = 20;
+let currentPage = 1;
+let totalPokemon = 1017; // Totalt antall Pokemon
+const TOTAL_PAGES = Math.ceil(totalPokemon / POKEMON_PER_PAGE);
+
 // ========================
 // HENDELSELYTTERE
 // ========================
-// Her setter vi opp lyttere for ulike hendelser på siden
 
-// Når innholdet i DOM-en er lastet, starter vi rotasjonen av starter Pokémon
-document.addEventListener("DOMContentLoaded", rotateStarterPokemon);
-
-//refresh page
+// Oppdater siden
 const refreshBtn = document.getElementById("nav-ico");
 
 function handleClick() {
@@ -39,10 +41,8 @@ function handleClick() {
 }
 refreshBtn.addEventListener("click", handleClick);
 
-// Legger til klikk-lytter på søk-knappen
+// Søkefunksjonalitet
 document.getElementById("searchButton").addEventListener("click", handleSearch);
-
-// Legger til lytter på input-feltet slik at "Enter"-tast fungerer som søk
 document.getElementById("pokemonName").addEventListener("keydown", (event) => {
   if (event.key === "Enter") handleSearch();
 });
@@ -51,32 +51,28 @@ document.getElementById("pokemonName").addEventListener("keydown", (event) => {
 // KJERNEFUNKSJONER
 // ========================
 
-// Funksjonen som kjøres når brukeren trykker søk
+// Håndterer søk etter Pokemon
 function handleSearch() {
-  // Henter og formaterer brukerens input
   const name = document
     .getElementById("pokemonName")
     .value.toLowerCase()
     .trim();
   if (!name) {
-    alert("Please enter a Pokémon name!"); // Advar bruker om å skrive inn et navn
+    alert("Skriv inn navnet på en Pokemon!");
     return;
   }
-  // Henter data for den oppgitte Pokémonen
   fetchPokemonData(name);
 }
 
-// Henter Pokémon-data asynkront fra PokeAPI
+// Henter Pokemon-data fra API
 async function fetchPokemonData(name) {
   try {
-    // Gjør et kall til API-et med navnet på Pokémonen
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
-    if (!response.ok) throw new Error("Pokémon not found! Try again."); // Feilmelding hvis ikke funnet
+    if (!response.ok) throw new Error("Pokemon ikke funnet! Prøv igjen.");
     const data = await response.json();
-    // Viser informasjonen om Pokémonen
     displayPokemonInfo(data);
   } catch (error) {
-    alert(error.message); // Viser feilmeldingen til brukeren
+    alert(error.message);
   }
 }
 
@@ -84,17 +80,34 @@ async function fetchPokemonData(name) {
 // VISNINGSFUNKSJONER
 // ========================
 
-// Oppdaterer grensesnittet for å vise Pokémon-info
+// Viser Pokemon-informasjon
 function displayPokemonInfo(data) {
-  // Hide welcome screen
-  document.getElementById("welcomeScreen").style.display = "none";
+  // Skjuler grid og viser Pokemon-info
+  document.getElementById("pokemonGrid").hidden = true;
 
-  // Show Pokemon info containers
-  document.querySelector("main").hidden = false;
-  document.querySelector(".nameAndTyping").hidden = false;
-  document.getElementById("pokemonInfo").hidden = false;
+  // Viser Pokemon-info containere
+  const mainElement = document.querySelector("main");
+  const nameTypingElement = document.querySelector(".nameAndTyping");
+  const pokemonInfoElement = document.getElementById("pokemonInfo");
 
-  // Update Pokemon info
+  if (mainElement) mainElement.hidden = false;
+  if (nameTypingElement) nameTypingElement.hidden = false;
+  if (pokemonInfoElement) pokemonInfoElement.hidden = false;
+
+  // Legger til tilbakeknapp hvis den ikke eksisterer
+  if (!document.getElementById("backToGrid")) {
+    const backBtn = document.createElement("button");
+    backBtn.id = "backToGrid";
+    backBtn.textContent = "Tilbake til oversikt";
+    backBtn.addEventListener("click", () => {
+      mainElement.hidden = true;
+      nameTypingElement.hidden = true;
+      pokemonInfoElement.hidden = true;
+      document.getElementById("pokemonGrid").hidden = false;
+    });
+    document.body.appendChild(backBtn);
+  }
+
   updatePokemonInfo(data);
   displayStats(data.stats);
 }
@@ -215,31 +228,6 @@ function updateTypeDisplay(types) {
 }
 
 // ========================
-// ANIMASJON PÅ VELKOMSTSKJERMEN
-// ========================
-
-// Animerer bytte av starter Pokémon på velkomstskjermen
-function rotateStarterPokemon() {
-  // Liste over starter Pokémon med id og navn
-  const starters = [
-    { id: 1, name: "Bulbasaur" },
-    { id: 4, name: "Charmander" },
-    { id: 7, name: "Squirtle" },
-  ];
-
-  let currentIndex = 0;
-  const welcomeImage = document.querySelector(".welcome-pokeball");
-
-  // Bytt bilde hvert 3. sekund
-  setInterval(() => {
-    currentIndex = (currentIndex + 1) % starters.length;
-    const starter = starters[currentIndex];
-    welcomeImage.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${starter.id}.png`;
-    welcomeImage.alt = starter.name;
-  }, 3000);
-}
-
-// ========================
 // SPRITE HÅNDTERING
 // ========================
 
@@ -269,19 +257,124 @@ function updatePokemonSprite(data) {
   pokemonImage.src = genVSprite || showdownSprite || basicSprite;
 }
 
-// Håndterer klikk på shiny-toggle knappen
-document.getElementById("shinyToggle").addEventListener("click", () => {
-  isShiny = !isShiny; // Bytter mellom normal og shiny
+// Laster Pokemon-kort utenfor DOMContentLoaded
+async function loadPokemonCards(page) {
+  const startId = (page - 1) * POKEMON_PER_PAGE + 1;
+  const endId = Math.min(page * POKEMON_PER_PAGE, totalPokemon);
+  const gridContainer = document.getElementById("pokemonGrid");
+  const cardsContainer = gridContainer.querySelector(".cards-container");
 
-  // Oppdaterer ikonet for shiny-toggle
-  const shinyIcon = document.getElementById("shinyIcon");
-  shinyIcon.src = isShiny ? "img/Shiny.png" : "img/NonShiny.png";
+  cardsContainer.innerHTML = ""; // Tømmer kortene
 
-  // Oppdaterer Pokemon sprite hvis en Pokemon vises
-  const currentPokemon = document.getElementById("pokemonImage");
-  if (!currentPokemon.hidden) {
-    updatePokemonSprite(currentPokemon.dataset.pokemonData);
+  for (let i = startId; i <= endId; i++) {
+    try {
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
+      const pokemon = await response.json();
+
+      const card = document.createElement("div");
+      card.className = "pokemon-card";
+      card.innerHTML = `
+        <span class="card-id">#${String(pokemon.id).padStart(3, "0")}</span>
+        <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}" />
+        <h3>${pokemon.name.toUpperCase()}</h3>
+        <div class="card-types">
+          ${pokemon.types
+            .map(
+              (type) =>
+                `<span class="type-badge" style="background-color: var(--${
+                  type.type.name
+                }-clr)">
+                  ${type.type.name.toUpperCase()}
+                </span>`
+            )
+            .join("")}
+        </div>
+      `;
+
+      card.addEventListener("click", () => {
+        document.getElementById("pokemonGrid").hidden = true;
+        displayPokemonInfo(pokemon);
+      });
+
+      cardsContainer.appendChild(card);
+    } catch (error) {
+      console.error(`Feil ved lasting av Pokemon ${i}:`, error);
+    }
   }
+
+  // Oppdater paginering
+  const pageSelect = document.getElementById("pageSelect");
+  if (pageSelect) pageSelect.value = page.toString();
+
+  document.getElementById("prevPage").disabled = page === 1;
+  document.getElementById("nextPage").disabled = endId >= totalPokemon;
+}
+
+// Hendelselyttere og initialisering når DOM er lastet
+document.addEventListener("DOMContentLoaded", () => {
+  // Initialiser pagineringskontroller
+  const pageSelect = document.getElementById("pageSelect");
+  const prevButton = document.getElementById("prevPage");
+  const nextButton = document.getElementById("nextPage");
+  const firstButton = document.getElementById("firstPage");
+  const lastButton = document.getElementById("lastPage");
+
+  // Fyll nedtrekksmeny med sider
+  for (let i = 1; i <= TOTAL_PAGES; i++) {
+    const option = document.createElement("option");
+    option.value = i;
+    option.textContent = `Side ${i}`;
+    pageSelect.appendChild(option);
+  }
+
+  // Legg til hendelselyttere
+  pageSelect.addEventListener("change", () => {
+    currentPage = parseInt(pageSelect.value);
+    loadPokemonCards(currentPage);
+  });
+
+  prevButton.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      loadPokemonCards(currentPage);
+    }
+  });
+
+  nextButton.addEventListener("click", () => {
+    if (currentPage * POKEMON_PER_PAGE < totalPokemon) {
+      currentPage++;
+      loadPokemonCards(currentPage);
+    }
+  });
+
+  firstButton.addEventListener("click", () => {
+    currentPage = 1;
+    loadPokemonCards(currentPage);
+  });
+
+  lastButton.addEventListener("click", () => {
+    currentPage = TOTAL_PAGES;
+    loadPokemonCards(currentPage);
+  });
+
+  // Legg til shiny-toggle lytter
+  const shinyToggle = document.getElementById("shinyToggle");
+  if (shinyToggle) {
+    shinyToggle.addEventListener("click", () => {
+      isShiny = !isShiny;
+      const shinyIcon = document.getElementById("shinyIcon");
+      if (shinyIcon) {
+        shinyIcon.src = isShiny ? "img/Shiny.png" : "img/NonShiny.png";
+      }
+      const pokemonImage = document.getElementById("pokemonImage");
+      if (pokemonImage && pokemonImage.dataset.pokemonData) {
+        updatePokemonSprite(pokemonImage.dataset.pokemonData);
+      }
+    });
+  }
+
+  // Last første side
+  loadPokemonCards(1);
 });
 
 // cSpell: enable

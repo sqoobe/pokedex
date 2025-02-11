@@ -20,15 +20,21 @@
         />
       </div>
     </nav>
-    <div id="welcomeScreen">
-      <img
-        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
-        alt="Bulbasaur"
-        class="welcome-pokeball"
-      />
-      <h2>Welcome to the Pokédex!</h2>
-
-      <p>Enter a Pokémon name above to get started</p>
+    <div id="pokemonGrid" class="pokemon-grid">
+      <div class="cards-container">
+        <!-- Cards will be added here dynamically -->
+      </div>
+      <div class="pagination">
+        <button id="firstPage" class="page-btn">First</button>
+        <button id="prevPage" class="page-btn">Previous</button>
+        <div class="page-navigation">
+          <select id="pageSelect" class="page-select">
+            <!-- Options added dynamically in JS -->
+          </select>
+        </div>
+        <button id="nextPage" class="page-btn">Next</button>
+        <button id="lastPage" class="page-btn">Last</button>
+      </div>
     </div>
 
     <main hidden>
