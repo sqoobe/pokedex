@@ -21,7 +21,7 @@ const statNames = {
   speed: "SPD", // SPD (fart)
 };
 
-let isShiny = false; // Tracker om shiny er aktiv
+let isShiny = false; // Holder styr på om shiny versjon er aktiv
 
 // ========================
 // HENDELSELYTTERE
@@ -239,33 +239,49 @@ function rotateStarterPokemon() {
   }, 3000);
 }
 
-// Legg til med andre hendelseslyttere
-document.getElementById("shinyToggle").addEventListener("click", () => {
-  isShiny = !isShiny; // Toggle the state
+// ========================
+// SPRITE HÅNDTERING
+// ========================
 
-  // Oppdater ikonet
-  const shinyIcon = document.getElementById("shinyIcon");
-  shinyIcon.src = isShiny ? "img/Shiny.png" : "img/NonShiny.png";
-
-  // Hvis en Pokémon er vist, oppdater dens sprite
-  const currentPokemon = document.getElementById("pokemonImage");
-  if (!currentPokemon.hidden) {
-    updatePokemonSprite(currentPokemon.dataset.pokemonData);
-  }
-});
-
-// Ny funksjon for å håndtere sprite-oppdateringer
+// Oppdaterer Pokemon-sprite basert på tilgjengelige sprites og shiny status
 function updatePokemonSprite(data) {
-  // Hvis data er en streng (fra dataset), parse den
+  // Konverterer data fra string hvis nødvendig
   if (typeof data === "string") {
     data = JSON.parse(data);
   }
 
   const spriteVersion = isShiny ? "front_shiny" : "front_default";
-  document.getElementById("pokemonImage").src =
-    data.sprites.versions["generation-v"]["black-white"].animated[
+  const pokemonImage = document.getElementById("pokemonImage");
+
+  // Prøver Gen V sprite først (animert)
+  const genVSprite =
+    data.sprites.versions["generation-v"]?.["black-white"]?.animated?.[
       spriteVersion
     ];
+
+  // Hvis ingen Gen V, prøv Showdown sprite (animert)
+  const showdownSprite = data.sprites.other?.showdown?.[spriteVersion];
+
+  // Hvis ingen Showdown, bruk basic sprite (ikke animert)
+  const basicSprite = data.sprites[spriteVersion];
+
+  // Bruker første tilgjengelige sprite
+  pokemonImage.src = genVSprite || showdownSprite || basicSprite;
 }
+
+// Håndterer klikk på shiny-toggle knappen
+document.getElementById("shinyToggle").addEventListener("click", () => {
+  isShiny = !isShiny; // Bytter mellom normal og shiny
+
+  // Oppdaterer ikonet for shiny-toggle
+  const shinyIcon = document.getElementById("shinyIcon");
+  shinyIcon.src = isShiny ? "img/Shiny.png" : "img/NonShiny.png";
+
+  // Oppdaterer Pokemon sprite hvis en Pokemon vises
+  const currentPokemon = document.getElementById("pokemonImage");
+  if (!currentPokemon.hidden) {
+    updatePokemonSprite(currentPokemon.dataset.pokemonData);
+  }
+});
 
 // cSpell: enable
